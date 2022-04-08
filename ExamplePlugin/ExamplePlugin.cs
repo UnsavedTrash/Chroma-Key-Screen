@@ -29,6 +29,7 @@ namespace ExamplePlugin
             TPoseButton = CustomEmotesAPI.instance.Config.Bind<KeyboardShortcut>("Controls", "T-Pose Button", new KeyboardShortcut(KeyCode.T), "Hold to T-Pose");
             ModSettingsManager.AddOption(new KeyBindOption(TPoseButton));
             Assets.AddBundle($"example_emotes");
+            ModSettingsManager.SetModIcon(Assets.Load<Sprite>("@ExampleEmotePlugin_example_emotes:assets/icon.png"));
             CustomEmotesAPI.AddCustomAnimation(Assets.Load<AnimationClip>("@ExampleEmotePlugin_example_emotes:assets/backflip.anim"), false); //Most standard emote here, non-looping, no sounds
             CustomEmotesAPI.AddCustomAnimation(Assets.Load<AnimationClip>("@ExampleEmotePlugin_example_emotes:assets/t pose.anim"), true, visible: false); //Similar to previous, but this is a looping emote which is also hidden from the regular emote picker. Has to be invoked from a function as shown below.
             CustomEmotesAPI.animChanged += CustomEmotesAPI_animChanged; //Lets you know when a new emote is played and it's name
@@ -40,9 +41,22 @@ namespace ExamplePlugin
             //CustomEmotesAPI.GetLocalBodyAnimationClip()      If you don't wanna just use the hook used above.
 
 
-            //I know this one is weird, feel free to @ me in discord if you need help with this. You will need access to the bodyPrefab used in game and we should be able to go from there.
-            //CustomEmotesAPI.ImportArmature(bodyPrefab, underskeleton)       If you want to import your custom survivor so it can use the emotes. bodyPrefab is just that. underskeleton is essentially a copy of the skeleton from the bodyPrefab except it HAS to be a humanoid skeleton in unity.
-
+            //https://youtu.be/c_G3G4RzCFA        a walkthrough of importing a bodyprefab into game. All vanilla survivors are already imported, this is for modded characters
+            //If you want to import your custom survivor so it can use the emotes. bodyPrefab is just that. underskeleton is essentially a copy of the skeleton from the bodyPrefab except it HAS to be a humanoid skeleton in unity.
+            //I know this one is weird, feel free to @ me in discord if you need help with this. You will need access to the bodyPrefab used in game and we should be able to go from there.    
+            //On.RoR2.SurvivorCatalog.Init += (orig) =>      
+            //{
+            //    orig();
+            //    foreach (var item in SurvivorCatalog.allSurvivorDefs)
+            //    {
+            //        DebugClass.Log($"----------bodyprefab: [{item.bodyPrefab}]");
+            //        if (item.bodyPrefab.name == "MageBody")
+            //        {
+            //            var skele = Assets.Load<GameObject>("@ExampleEmotePlugin_example_emotes:assets/artificer.prefab");
+            //            CustomEmotesAPI.ImportArmature(item.bodyPrefab, underskeleton);
+            //        }
+            //    }
+            //};
 
 
 
@@ -99,9 +113,6 @@ namespace ExamplePlugin
             CustomEmotesAPI.AddCustomAnimation(Assets.Load<AnimationClip>("@MoistureUpset_moisture_animationreplacements:assets/animationreplacements/ThumbsUp.anim"), false, rootBonesToIgnore: upperLegs, soloBonesToIgnore: hips);
             CustomEmotesAPI.AddCustomAnimation(Assets.Load<AnimationClip>("@MoistureUpset_moisture_animationreplacements:assets/animationreplacements/ThumbsDown.anim"), false, rootBonesToIgnore: upperLegs, soloBonesToIgnore: hips);
              */
-
-
-
         }
 
         private void CustomEmotesAPI_animChanged(string newAnimation, BoneMapper mapper)
