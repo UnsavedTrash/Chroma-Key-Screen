@@ -1,9 +1,3 @@
-# My first mod
+# Example Emote Plugin
 
-Description.
-
-## Changelog
-
-**1.0.0**
-
-* Release of my first mod.
+Bottom Text
