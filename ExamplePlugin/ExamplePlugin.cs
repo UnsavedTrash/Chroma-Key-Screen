@@ -75,6 +75,8 @@ namespace ExamplePlugin
             bool stopWhenMove = false                       //Stops the animation if moving
             bool stopWhenAttack = false                     //Stops the animation if attacking
             bool visible = true                             //Dictates if emote will show up in the normal list.
+            bool syncAnim = false                           //Dictates if emote will sync the animation.
+            bool syncAudio = false                          //Dictates if emote will sync audio (requires wwise start and stop events)
 
 
 
