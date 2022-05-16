@@ -14,7 +14,6 @@ namespace ExamplePlugin
     [BepInDependency("com.rune580.riskofoptions")]
     [BepInPlugin(PluginGUID, PluginName, PluginVersion)]
     [NetworkCompatibility(CompatibilityLevel.EveryoneMustHaveMod, VersionStrictness.EveryoneNeedSameModVersion)]
-    [R2APISubmoduleDependency("SoundAPI", "PrefabAPI", "CommandHelper", "LoadoutAPI", "SurvivorAPI", "ResourcesAPI", "LanguageAPI", "NetworkingAPI", "UnlockAPI")]
     public class ExamplePlugin : BaseUnityPlugin
     {
         public const string PluginGUID = "com.weliveinasociety.ExampleEmotes";
@@ -33,7 +32,8 @@ namespace ExamplePlugin
             CustomEmotesAPI.AddCustomAnimation(Assets.Load<AnimationClip>("@ExampleEmotePlugin_example_emotes:assets/backflip.anim"), false); //Most standard emote here, non-looping, no sounds
             CustomEmotesAPI.AddCustomAnimation(Assets.Load<AnimationClip>("@ExampleEmotePlugin_example_emotes:assets/t pose.anim"), true, visible: false); //Similar to previous, but this is a looping emote which is also hidden from the regular emote picker. Has to be invoked from a function as shown below.
             CustomEmotesAPI.animChanged += CustomEmotesAPI_animChanged; //Lets you know when a new emote is played and it's name
-
+            CustomEmotesAPI.emoteSpotJoined_Body += CustomEmotesAPI_emoteSpotJoined_Body;
+            CustomEmotesAPI.emoteSpotJoined_Prop += CustomEmotesAPI_emoteSpotJoined_Prop;
             //CustomEmotesAPI.CreateNameTokenSpritePair("customSurvivorNameToken", sprite);    For the circle in the middle when you are choosing an emote. 
 
 
@@ -63,20 +63,6 @@ namespace ExamplePlugin
 
             //more examples here, animation setup from moisture upset. Some stuff here will cause errors due to missing resources so leave it commented
             /*
-            All possible inputs for a AddCustomAnimation:
-            AnimationClip animationClip                     //Default animation
-            bool looping                                    //Whether or not animationClip loops
-            string _wwiseEventName = ""                     //Event to post when animation starts
-            string _wwiseStopEvent = ""                     //Event to post when animation stops
-            HumanBodyBones[] rootBonesToIgnore = null       //All bones specified and any child bones will be ignored by the animation
-            HumanBodyBones[] soloBonesToIgnore = null       //All bones specified will be ignored by the animation
-            AnimationClip secondaryAnimation = null         //Animation to play after the primary animation. Use this if you have a non-looping-into-looping animation
-            bool dimWhenClose = false                       //Create an audio dimming sphere around the emotee which will dim normal music when you approach them
-            bool stopWhenMove = false                       //Stops the animation if moving
-            bool stopWhenAttack = false                     //Stops the animation if attacking
-            bool visible = true                             //Dictates if emote will show up in the normal list.
-            bool syncAnim = false                           //Dictates if emote will sync the animation.
-            bool syncAudio = false                          //Dictates if emote will sync audio (requires wwise start and stop events)
 
 
 
@@ -117,12 +103,22 @@ namespace ExamplePlugin
              */
         }
 
+        private void CustomEmotesAPI_emoteSpotJoined_Prop(GameObject emoteSpot, BoneMapper joiner, BoneMapper host)
+        {
+            //does nothing, just putting this here to show that you can do it
+        }
+
+        private void CustomEmotesAPI_emoteSpotJoined_Body(GameObject emoteSpot, BoneMapper joiner, BoneMapper host)
+        {
+            //does nothing, just putting this here to show that you can do it
+        }
+
         private void CustomEmotesAPI_animChanged(string newAnimation, BoneMapper mapper)
         {
             currentAnim = newAnimation;
         }
 
-        bool GetKeyPressed(ConfigEntry<KeyboardShortcut> entry)
+        bool GetKeyDown(ConfigEntry<KeyboardShortcut> entry)
         {
             foreach (var item in entry.Value.Modifiers)
             {
@@ -146,7 +142,7 @@ namespace ExamplePlugin
         }
         private void Update()
         {
-            if (GetKeyPressed(TPoseButton))
+            if (GetKeyDown(TPoseButton))
             {
                 CustomEmotesAPI.PlayAnimation("T Pose"); //You can call animations manually, even if they are hidden like here. Consider naming your hidden emotes something very unique so there isn't any conflicts
             }
