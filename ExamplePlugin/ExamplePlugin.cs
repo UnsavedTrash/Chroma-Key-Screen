@@ -117,6 +117,20 @@ namespace ExamplePlugin
         {
             currentAnim = newAnimation;
         }
+        private void Update()
+        {
+            if (GetKeyDown(TPoseButton))
+            {
+                CustomEmotesAPI.PlayAnimation("T Pose"); //You can call animations manually, even if they are hidden like here. Consider naming your hidden emotes something very unique so there isn't any conflicts
+            }
+            else if (GetKeyUp(TPoseButton))
+            {
+                if (currentAnim == "T Pose")
+                {
+                    CustomEmotesAPI.PlayAnimation("none");
+                }
+            }
+        }
 
         bool GetKeyDown(ConfigEntry<KeyboardShortcut> entry)
         {
@@ -139,20 +153,6 @@ namespace ExamplePlugin
                 }
             }
             return Input.GetKeyUp(entry.Value.MainKey);
-        }
-        private void Update()
-        {
-            if (GetKeyDown(TPoseButton))
-            {
-                CustomEmotesAPI.PlayAnimation("T Pose"); //You can call animations manually, even if they are hidden like here. Consider naming your hidden emotes something very unique so there isn't any conflicts
-            }
-            else if (GetKeyUp(TPoseButton))
-            {
-                if (currentAnim == "T Pose")
-                {
-                    CustomEmotesAPI.PlayAnimation("none");
-                }
-            }
         }
     }
 }
