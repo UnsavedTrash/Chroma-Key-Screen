@@ -1,0 +1,36 @@
+ManifestFileVersion: 0
+CRC: 3083590903
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 1a60a3363aac9f24ec2b28c29c9de6bf
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 51c682616bd7f3dc763b52b2f08205a8
+HashAppended: 0
+ClassTypes:
+- Class: 1
+  Script: {instanceID: 0}
+- Class: 4
+  Script: {instanceID: 0}
+- Class: 21
+  Script: {instanceID: 0}
+- Class: 23
+  Script: {instanceID: 0}
+- Class: 28
+  Script: {instanceID: 0}
+- Class: 33
+  Script: {instanceID: 0}
+- Class: 43
+  Script: {instanceID: 0}
+- Class: 48
+  Script: {instanceID: 0}
+- Class: 65
+  Script: {instanceID: 0}
+- Class: 213
+  Script: {instanceID: 0}
+SerializeReferenceClassIdentifiers: []
+Assets:
+- Assets/icon.png
+- Assets/Smooth Chroma Cube.prefab
+Dependencies: []

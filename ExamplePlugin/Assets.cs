@@ -4,7 +4,7 @@ using System.Reflection;
 using System.Text;
 using UnityEngine;
 
-namespace ExamplePlugin
+namespace ChromaKeyCube
 {
     public static class Assets
     {
@@ -17,7 +17,7 @@ namespace ExamplePlugin
         /// <param name="assetBundleLocation"></param>
         public static void AddBundle(string assetBundleLocation)
         {
-            using var assetBundleStream = Assembly.GetExecutingAssembly().GetManifestResourceStream($"ExampleEmotePlugin.{assetBundleLocation}");
+            using var assetBundleStream = Assembly.GetExecutingAssembly().GetManifestResourceStream($"ChromaKeyCube.{assetBundleLocation}");
             AssetBundle assetBundle = AssetBundle.LoadFromStream(assetBundleStream);
 
             int index = AssetBundles.Count;
@@ -37,6 +37,7 @@ namespace ExamplePlugin
 
         public static T Load<T>(string assetName) where T : UnityEngine.Object
         {
+            assetName = assetName.ToLower();
             if (assetName.Contains(":"))
             {
                 string[] path = assetName.Split(':');

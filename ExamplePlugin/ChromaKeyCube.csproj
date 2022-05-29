@@ -1,0 +1,42 @@
+﻿<Project Sdk="Microsoft.NET.Sdk" ToolsVersion="15.0">
+	<PropertyGroup>
+		<TargetFramework>netstandard2.0</TargetFramework>
+		<LangVersion>preview</LangVersion>
+		<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+		<FileUpgradeFlags>40</FileUpgradeFlags>
+		<UpgradeBackupLocation>C:\Users\SSDestroyer\Documents\GitHub\Chroma-Key-Screen\Backup\ExamplePlugin\</UpgradeBackupLocation>
+		<OldToolsVersion>2.0</OldToolsVersion>
+		<BaseOutputPath>bin\</BaseOutputPath>
+	</PropertyGroup>
+	<ItemGroup>
+		<Compile Remove="libs\**" />
+		<EmbeddedResource Remove="libs\**" />
+		<None Remove="libs\**" />
+	</ItemGroup>
+	<ItemGroup>
+		<None Remove="cube" />
+		<None Remove="smooth_chroma_cube" />
+	</ItemGroup>
+	<ItemGroup>
+		<EmbeddedResource Include="cube" />
+	</ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="BepInEx.Analyzers" Version="1.0.*">
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
+		<PackageReference Include="BepInEx.Core" Version="5.4.19" />
+		<PackageReference Include="MetrosexualFruitcake-CustomEmotesAPI" Version="1.6.2" />
+		<PackageReference Include="RiskOfRain2.GameLibs" Version="1.2.1-r.1" />
+		<PackageReference Include="Rune580-Risk_Of_Options" Version="2.5.1" />
+		<PackageReference Include="tristanmcpherson-R2API" Version="4.3.21" />
+		<PackageReference Include="UnityEngine.Modules" Version="2019.4.26" />
+	</ItemGroup>
+	<ItemGroup>
+		<OutputFiles Include="$(TargetPath);$(TargetDir)$(TargetName).pdb" InProject="false" />
+	</ItemGroup>
+	<Target Name="PostBuild" AfterTargets="PostBuildEvent">
+		<!-- Copies dll and pdb to plugins folder -->
+		<Copy SourceFiles="@(OutputFiles)" DestinationFolder="C:\Program Files (x86)\Steam\steamapps\common\Risk of Rain 2\BepInEx\plugins\ChromaKeyCube\" />
+	</Target>
+</Project>
